@@ -1,0 +1,3 @@
+rootProject.name='utils-net'
+include ':app'
+include ':lib'
