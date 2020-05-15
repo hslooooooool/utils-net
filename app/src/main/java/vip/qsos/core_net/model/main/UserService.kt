@@ -15,18 +15,21 @@ interface UserService {
 
     companion object {
 
-        private const val ENDPOINT = "http://192.168.2.199:8080/"
+        private const val BASE_URL = "http://192.168.2.199:8080/"
+
         var appContext: Context? = null
+        var timeout: Long = 8000L
+
         val INSTANCE: UserService by lazy {
             val mClient = OkHttpClient.Builder()
-            mClient.connectTimeout(8, TimeUnit.SECONDS)
+            mClient.connectTimeout(timeout, TimeUnit.MILLISECONDS)
             appContext?.let {
                 val interceptor = MockInterceptor(it)
                 interceptor.addMockData(UserMockData())
                 mClient.addInterceptor(interceptor)
             }
             Retrofit.Builder()
-                .baseUrl(ENDPOINT)
+                .baseUrl(BASE_URL)
                 .callFactory(mClient.build())
                 .addConverterFactory(GsonConverterFactory.create(Gson()))
                 .build()

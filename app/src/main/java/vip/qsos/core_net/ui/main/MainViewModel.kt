@@ -8,8 +8,14 @@ import kotlinx.coroutines.launch
 import vip.qsos.core_net.Application
 import vip.qsos.core_net.model.main.UserInfo
 import vip.qsos.core_net.model.main.UserService
+import java.io.IOException
+import java.net.ConnectException
+import java.net.SocketTimeoutException
 
 class MainViewModel : ViewModel() {
+    init {
+        UserService.appContext = Application.appContext
+    }
 
     private val mUserInfo = MutableLiveData<UserInfo>()
 
@@ -22,14 +28,24 @@ class MainViewModel : ViewModel() {
         }
 
     fun loadUserInfo() = viewModelScope.launch {
-        UserService.appContext = Application.appContext
-        val user = UserService.INSTANCE.getUserInfo()
-        when (user.code) {
-            200 -> {
-                mUserInfo.postValue(user.data)
-            }
-            else -> {
+        try {
+            UserService.INSTANCE.getUserInfo()
+        } catch (e: SocketTimeoutException) {
+            null
+        } catch (e: ConnectException) {
+            null
+        } catch (e: IOException) {
+            null
+        } catch (e: Exception) {
+            null
+        }?.let {
+            when (it.code) {
+                200 -> {
+                    mUserInfo.postValue(it.data)
+                }
+                else -> {
 
+                }
             }
         }
     }

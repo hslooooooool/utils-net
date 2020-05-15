@@ -4,9 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.JsonIOException
 import kotlinx.coroutines.launch
 import vip.qsos.core_net.model.main.UserDetailService
 import vip.qsos.core_net.model.main.UserInfo
+import java.io.IOException
+import java.net.ConnectException
 
 class UserViewModel : ViewModel() {
     private val mUser = MutableLiveData<UserInfo>()
@@ -15,10 +18,19 @@ class UserViewModel : ViewModel() {
         get() = mUser
 
     fun loadUser() = viewModelScope.launch {
-        val user = UserDetailService.INSTANCE.getUserDetail()
-        when (user.code) {
-            200 -> {
-                mUser.postValue(user.data)
+        try {
+            UserDetailService.INSTANCE.getUserDetail()
+        } catch (e: ConnectException) {
+            null
+        } catch (e: IOException) {
+            null
+        } catch (e: Exception) {
+            null
+        }?.let {
+            when (it.code) {
+                200 -> {
+                    mUser.postValue(it.data)
+                }
             }
         }
     }

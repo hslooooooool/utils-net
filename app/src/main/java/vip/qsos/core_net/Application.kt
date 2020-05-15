@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import vip.qsos.core_net.lib.APIServer
 import vip.qsos.core_net.lib.mock.IMockData
-import vip.qsos.core_net.model.APIServerConfig
 
 class Application : Application() {
     companion object {
@@ -20,6 +19,9 @@ class Application : Application() {
         IMockData.dataBySdCard = false
         IMockData.requestTime = 0
 
-        APIServer.init(APIServerConfig())
+        // 初始化网络请求
+        APIServer.init(
+            APIServer.Config(this, "http://192.168.2.199:8080/")
+        )
     }
 }

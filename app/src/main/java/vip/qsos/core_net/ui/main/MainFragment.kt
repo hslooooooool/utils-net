@@ -38,8 +38,4 @@ class MainFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.loadUserInfo()
-    }
 }

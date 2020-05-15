@@ -18,7 +18,7 @@ data class MockData(
     val method: String,
     val path: String,
     val filename: String,
-    val requestTime: Long
+    val requestTime: Long = 0L
 ) {
     /**Mock数据配置识别 Key，由 method + path 组成*/
     val key = method.toUpperCase(Locale.ENGLISH) + path
@@ -49,7 +49,7 @@ interface IMockData {
          * 默认 0 毫秒，此时请求的超时时间将交由每个 MockData 自行控制
          * @see IMockData.requestTime
          * */
-        var requestTime: Long = 0
+        var requestTime: Long = 0L
     }
 
     /**MOCK 配置数据*/
@@ -57,7 +57,7 @@ interface IMockData {
 
     /**Mock 数据文件路径
      *
-     * 默认 mock/$group/$filename 组成
+     * 默认 mock/$group/ 组成
      * @see AbstractMockData.path
      * */
     fun path(): String
@@ -79,7 +79,7 @@ abstract class AbstractMockData : IMockData {
 
     /**Mock 数据文件路径默认组成方式*/
     override fun path(): String {
-        return "mock/${config.group}/${config.filename}"
+        return "mock/${config.group}/"
     }
 
     /**Mock 开关默认状态*/
