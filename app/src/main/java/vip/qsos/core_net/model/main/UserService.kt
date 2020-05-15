@@ -6,8 +6,11 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import vip.qsos.core_net.lib.callback.IBaseResult
 import vip.qsos.core_net.lib.mock.MockInterceptor
+import vip.qsos.core_net.model.HttpBaseResult
 import vip.qsos.core_net.model.HttpResult
+import vip.qsos.core_net.model.mock.UserListMockData
 import vip.qsos.core_net.model.mock.UserMockData
 import java.util.concurrent.TimeUnit
 
@@ -26,6 +29,7 @@ interface UserService {
             appContext?.let {
                 val interceptor = MockInterceptor(it)
                 interceptor.addMockData(UserMockData())
+                interceptor.addMockData(UserListMockData())
                 mClient.addInterceptor(interceptor)
             }
             Retrofit.Builder()
@@ -40,5 +44,8 @@ interface UserService {
 
     @GET("/api/user")
     suspend fun getUserInfo(): HttpResult<UserInfo>
+
+    @GET("/api/user/list")
+    suspend fun getUserList(): IBaseResult<List<UserInfo>>
 
 }

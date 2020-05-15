@@ -104,9 +104,9 @@ suspend fun <ResultType> CoroutineScope.retrofit(dsl: RetrofitCoroutineScope.Dsl
  * 常用的 Retrofit 协程请求，方便简单的接口调用，统一的请求状态管理，自行对请求状态进行处理
  */
 suspend fun <ResultType> CoroutineScope.retrofitWithBaseResult(
-    dsl: RetrofitCoroutineScope.DslWithBaseResult<IBaseResult<ResultType>>.() -> Unit
+    dsl: RetrofitCoroutineScope.DslWithBaseResult<ResultType>.() -> Unit
 ) {
-    val retrofitCoroutine = RetrofitCoroutineScope.DslWithBaseResult<IBaseResult<ResultType>>()
+    val retrofitCoroutine = RetrofitCoroutineScope.DslWithBaseResult<ResultType>()
     retrofitCoroutine.dsl()
 
     try {

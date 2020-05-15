@@ -18,3 +18,11 @@ class UserDetailMockData : AbstractMockData() {
     )
 
 }
+
+class UserListMockData : AbstractMockData() {
+
+    override val config: MockData = MockData(
+        "account", "GET", "/api/user/list", "user-list.json", 3000
+    )
+
+}
