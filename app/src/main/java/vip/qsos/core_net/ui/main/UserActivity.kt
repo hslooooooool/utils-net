@@ -1,6 +1,7 @@
 package vip.qsos.core_net.ui.main
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -19,6 +20,8 @@ class UserActivity : AppCompatActivity() {
             user_info.text = it.toString()
         })
 
-        mUserViewModel.loadUser()
+        mUserViewModel.loadUser {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        }
     }
 }

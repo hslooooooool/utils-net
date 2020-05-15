@@ -35,6 +35,7 @@ interface UserService {
                 .build()
                 .create(UserService::class.java)
         }
+
     }
 
     @GET("/api/user")

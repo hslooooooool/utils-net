@@ -4,12 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.gson.JsonIOException
 import kotlinx.coroutines.launch
+import vip.qsos.core_net.lib.expand.retrofit
+import vip.qsos.core_net.model.HttpResult
 import vip.qsos.core_net.model.main.UserDetailService
 import vip.qsos.core_net.model.main.UserInfo
-import java.io.IOException
-import java.net.ConnectException
 
 class UserViewModel : ViewModel() {
     private val mUser = MutableLiveData<UserInfo>()
@@ -17,20 +16,28 @@ class UserViewModel : ViewModel() {
     val user: LiveData<UserInfo>
         get() = mUser
 
-    fun loadUser() = viewModelScope.launch {
-        try {
-            UserDetailService.INSTANCE.getUserDetail()
-        } catch (e: ConnectException) {
-            null
-        } catch (e: IOException) {
-            null
-        } catch (e: Exception) {
-            null
-        }?.let {
-            when (it.code) {
-                200 -> {
-                    mUser.postValue(it.data)
+    fun loadUser(toast: (msg: String) -> Unit) = viewModelScope.launch {
+        retrofit<HttpResult<UserInfo>> {
+            request { UserDetailService.INSTANCE.getUserDetail() }
+            onStart {
+                toast.invoke("请求开始")
+            }
+            onSuccess {
+                when (it?.code) {
+                    200 -> {
+                        toast.invoke("请求成功")
+                        mUser.postValue(it.data)
+                    }
+                    else -> {
+
+                    }
                 }
+            }
+            onFailed { code, msg, error ->
+                toast.invoke(msg)
+            }
+            onComplete {
+                toast.invoke("请求结束")
             }
         }
     }

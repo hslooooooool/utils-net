@@ -2,6 +2,7 @@ package vip.qsos.core_net.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +31,11 @@ class MainFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         viewModel.userInfo.observe(requireActivity(), Observer {
-            message.text = it.toString()
+            message.text = it?.data?.toString() ?: "暂无数据"
+        })
+        viewModel.userInfo.httpState.observe(requireActivity(), Observer {
+            Log.d("网络请求", it.toString())
+            status.text = it.msg
         })
 
         message.setOnClickListener {
