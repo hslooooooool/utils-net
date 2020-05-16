@@ -3,7 +3,7 @@ package vip.qsos.core_net.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import vip.qsos.core_net.lib.expand.retrofit
+import vip.qsos.core_net.lib.retrofit.retrofit
 import vip.qsos.core_net.model.HttpResult
 import vip.qsos.core_net.model.FeedbackService
 

@@ -17,7 +17,7 @@ import vip.qsos.core_net.R
 
 class HomeFragment : Fragment() {
 
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: HomeViewModel by viewModels()
     private lateinit var mAdapter: UserAdapter
     private lateinit var vUserList: RecyclerView
     private lateinit var vStatus: TextView

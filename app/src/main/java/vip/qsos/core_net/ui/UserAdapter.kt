@@ -9,10 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import vip.qsos.core_net.R
 import vip.qsos.core_net.model.UserInfo
 
-/**
- * @author : 华清松
- * TODO 类说明，描述此类的类型和用途
- */
 class UserAdapter : RecyclerView.Adapter<UserAdapter.Holder>() {
 
     lateinit var data: MutableList<UserInfo>

@@ -1,9 +1,13 @@
 package vip.qsos.core_net.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -15,7 +19,9 @@ import vip.qsos.core_net.R
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private val viewModel: HomeViewModel by viewModels()
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,6 +37,11 @@ class HomeActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        viewModel.user.observe(this, Observer {
+            findViewById<TextView>(R.id.name).text = it.name
+            findViewById<TextView>(R.id.info).text = "${it.sexy}\t\t 年龄:${it.age}"
+        })
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -1,5 +1,6 @@
-package vip.qsos.core_net.lib.expand
+package vip.qsos.core_net.lib.retrofit
 
+import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineScope
 import vip.qsos.core_net.lib.callback.HttpLiveData
 import vip.qsos.core_net.lib.callback.HttpStatus
@@ -8,9 +9,8 @@ import java.io.IOException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 
-/**
+/**Kotlin 协程配置 Retrofit 请求处理逻辑
  * @author : 华清松
- * Kotlin 协程配置 Retrofit 请求处理逻辑
  */
 class RetrofitCoroutineScope {
 
@@ -29,10 +29,25 @@ class RetrofitCoroutineScope {
     }
 
     class DslWithLiveData<ResultType> {
-        lateinit var liveData: (HttpLiveData<ResultType?>)
+        lateinit var liveData: (MutableLiveData<ResultType>)
         lateinit var request: suspend () -> ResultType?
+        var status: (suspend (status: HttpStatus) -> Unit?)? = null
+            private set
 
         fun request(request: suspend () -> ResultType?) {
+            this.request = request
+        }
+
+        fun status(status: suspend (status: HttpStatus) -> Unit) {
+            this.status = status
+        }
+    }
+
+    class DslWithHttpLiveData<ResultType> {
+        lateinit var liveData: (HttpLiveData<ResultType>)
+        lateinit var request: suspend () -> ResultType?
+
+        fun request(request: suspend () -> ResultType) {
             this.request = request
         }
     }
@@ -74,9 +89,8 @@ class RetrofitCoroutineScope {
     }
 }
 
-/**
+/**普通请求，自行对请求状态进行处理
  * @author : 华清松
- * 常用的 Retrofit 协程请求，方便简单的接口调用，统一的请求状态管理，自行对请求状态进行处理
  */
 suspend fun <ResultType> CoroutineScope.retrofit(dsl: RetrofitCoroutineScope.Dsl<ResultType>.() -> Unit) {
     val retrofitCoroutine = RetrofitCoroutineScope.Dsl<ResultType>()
@@ -101,9 +115,9 @@ suspend fun <ResultType> CoroutineScope.retrofit(dsl: RetrofitCoroutineScope.Dsl
     }
 }
 
-/**
+/**采用默认的返回对象，返回对象需实现 IBaseResult 接口
  * @author : 华清松
- * 常用的 Retrofit 协程请求，方便简单的接口调用，统一的请求状态管理，自行对请求状态进行处理
+ * @see IBaseResult
  */
 suspend fun <ResultType> CoroutineScope.retrofitWithBaseResult(
     dsl: RetrofitCoroutineScope.DslWithBaseResult<ResultType>.() -> Unit
@@ -140,14 +154,42 @@ suspend fun <ResultType> CoroutineScope.retrofitWithBaseResult(
     }
 }
 
-/**
+/**通过 MutableLiveData 更新 UI，通过 status 方法处理请求状态
  * @author : 华清松
- * 常用的 Retrofit 协程请求，方便简单的接口调用，统一的请求状态管理，通过 LiveData 直接更新 UI
+ * @see MutableLiveData
  */
 suspend fun <ResultType> CoroutineScope.retrofitWithLiveData(
     dsl: RetrofitCoroutineScope.DslWithLiveData<ResultType>.() -> Unit
 ) {
     val retrofitCoroutine = RetrofitCoroutineScope.DslWithLiveData<ResultType>()
+    retrofitCoroutine.dsl()
+
+    try {
+        retrofitCoroutine.status?.invoke(HttpStatus.start)
+        val result = retrofitCoroutine.request.invoke()
+        retrofitCoroutine.liveData.postValue(result)
+        retrofitCoroutine.status?.invoke(HttpStatus.success)
+    } catch (e: SocketTimeoutException) {
+        retrofitCoroutine.status?.invoke(HttpStatus.timeout)
+    } catch (e: ConnectException) {
+        retrofitCoroutine.status?.invoke(HttpStatus.connectError)
+    } catch (e: IOException) {
+        retrofitCoroutine.status?.invoke(HttpStatus.ioError)
+    } catch (e: Exception) {
+        retrofitCoroutine.status?.invoke(HttpStatus.error)
+    } finally {
+        retrofitCoroutine.status?.invoke(HttpStatus.complete)
+    }
+}
+
+/**采用默认的带状态监控的 HttpLiveData 更新 UI，HttpLiveData 内包含一个观察请求状态的 LiveData 。
+ * @author : 华清松
+ * @see HttpLiveData
+ */
+suspend fun <ResultType> CoroutineScope.retrofitWithHttpLiveData(
+    dsl: RetrofitCoroutineScope.DslWithHttpLiveData<ResultType>.() -> Unit
+) {
+    val retrofitCoroutine = RetrofitCoroutineScope.DslWithHttpLiveData<ResultType>()
     retrofitCoroutine.dsl()
 
     try {
@@ -167,5 +209,3 @@ suspend fun <ResultType> CoroutineScope.retrofitWithLiveData(
         retrofitCoroutine.liveData.httpState.postValue(HttpStatus.complete)
     }
 }
-
-

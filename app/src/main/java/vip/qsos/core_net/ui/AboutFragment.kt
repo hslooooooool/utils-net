@@ -21,7 +21,7 @@ class AboutFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_about, container, false)
         mAboutViewModel.about.observe(requireActivity(), Observer {
-            root.about.text = it
+            root.about.text = it ?: "请求错误"
         })
         return root
     }

@@ -18,7 +18,7 @@ object APIServer {
      * 给各个接口增加此配置后，请求服务将优先采用此参数，否者采用通用配置，通用配置见 APIServer.Config
      *
      * @param mockDataList MOCK 数据结合
-     * @param timeout 当前接口组超时时长。秒。<= 0 将采用通用配置。
+     * @param timeout 当前接口组超时时长。毫秒。<= 0 将采用通用配置。
      * @param baseUrl BaseUrl 。为空将采用通用配置。
      *
      * @see APIServer.init
@@ -33,7 +33,7 @@ object APIServer {
     /**网络请求服务通用配置
      * @param application Application
      * @param baseUrl BaseUrl
-     * @param timeout 统一超时时长。秒。默认 8 秒
+     * @param timeout 统一超时时长。毫秒。默认 8 秒
      * @param interceptor 请求拦截器集合
      * @param retrofitBuilder 选配。不配置采用默认配置。
      * @param okClientBuilder 选配。不配置采用默认配置。
@@ -41,7 +41,7 @@ object APIServer {
     data class Config(
         var application: Application?,
         var baseUrl: String?,
-        var timeout: Long = 8L,
+        var timeout: Long = 8000L,
         val interceptor: List<Interceptor> = arrayListOf(),
         val retrofitBuilder: Retrofit.Builder? = null,
         val okClientBuilder: OkHttpClient.Builder? = null
@@ -71,13 +71,13 @@ object APIServer {
         }
         if (mConfig.okClientBuilder == null) {
             okClientBuilder = OkHttpClient.Builder()
-            var timeout = 8L
+            var timeout = 8000L
             if (config?.timeout != null && config.timeout > 0L) {
                 timeout = config.timeout
             } else if (mConfig.timeout > 0L) {
                 timeout = mConfig.timeout
             }
-            okClientBuilder.connectTimeout(timeout, TimeUnit.SECONDS)
+            okClientBuilder.connectTimeout(timeout, TimeUnit.MILLISECONDS)
             mConfig.application?.let {
                 val interceptor = MockInterceptor(it)
                 config?.mockDataList?.forEach { data ->

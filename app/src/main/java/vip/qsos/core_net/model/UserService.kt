@@ -23,6 +23,7 @@ interface UserService {
             mClient.connectTimeout(timeout, TimeUnit.MILLISECONDS)
             appContext?.let {
                 val interceptor = MockInterceptor(it)
+                interceptor.addMockData(UserMockData())
                 interceptor.addMockData(UserListMockData())
                 mClient.addInterceptor(interceptor)
             }
@@ -35,6 +36,9 @@ interface UserService {
         }
 
     }
+
+    @GET("/api/user")
+    suspend fun getUser(): HttpResult<UserInfo>
 
     @GET("/api/user/list")
     suspend fun getUserList(): HttpResult<List<UserInfo>>

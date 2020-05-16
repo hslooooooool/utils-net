@@ -1,19 +1,17 @@
 package vip.qsos.core_net.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import vip.qsos.core_net.lib.expand.retrofit
-import vip.qsos.core_net.model.HttpResult
+import vip.qsos.core_net.lib.callback.HttpLiveData
+import vip.qsos.core_net.lib.retrofit.retrofitWithHttpLiveData
 import vip.qsos.core_net.model.AboutService
 
 class AboutViewModel : ViewModel() {
 
-    private val mAbout = MutableLiveData<String>()
+    private val mAbout = HttpLiveData<String?>()
 
-    val about: LiveData<String>
+    val about: HttpLiveData<String?>
         get() {
             if (mAbout.value == null) {
                 loadAbout()
@@ -22,18 +20,9 @@ class AboutViewModel : ViewModel() {
         }
 
     private fun loadAbout() = viewModelScope.launch {
-        retrofit<HttpResult<String>> {
-            request { AboutService.INSTANCE.about() }
-            onSuccess {
-                when (it?.code) {
-                    200 -> {
-                        mAbout.postValue(it.data)
-                    }
-                    else -> {
-
-                    }
-                }
-            }
+        retrofitWithHttpLiveData<String?> {
+            liveData = mAbout
+            request { AboutService.INSTANCE.about().data }
         }
     }
 

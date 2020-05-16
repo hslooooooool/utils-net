@@ -11,7 +11,7 @@ interface AboutService {
                 cls = AboutService::class.java,
                 config = APIServer.APIConfig(
                     baseUrl = "http://192.168.2.199:8081/",
-                    timeout = 3,
+                    timeout = 100L,
                     mockDataList = arrayListOf(
                         AboutMockData()
                     )

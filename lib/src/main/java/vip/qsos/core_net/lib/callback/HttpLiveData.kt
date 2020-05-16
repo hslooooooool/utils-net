@@ -8,6 +8,6 @@ import androidx.lifecycle.MutableLiveData
  * 观察的数据将默认持有一个可观测请求状态的 MutableLiveData 即 httpState
  */
 class HttpLiveData<T> : MutableLiveData<T>() {
-    /**网络请求状态被观察者*/
+    /**网络请求状态*/
     val httpState = MutableLiveData<HttpStatus>()
 }

@@ -12,7 +12,7 @@ interface FeedbackService {
                 cls = FeedbackService::class.java,
                 config = APIServer.APIConfig(
                     baseUrl = "http://192.168.2.199:8080/",
-                    timeout = 3,
+                    timeout = 3000L,
                     mockDataList = arrayListOf(
                         FeedbackMockData()
                     )
