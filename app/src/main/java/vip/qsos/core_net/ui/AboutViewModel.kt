@@ -20,7 +20,7 @@ class AboutViewModel : ViewModel() {
         }
 
     private fun loadAbout() = viewModelScope.launch {
-        retrofitWithHttpLiveData<String?> {
+        retrofitWithHttpLiveData<String> {
             liveData = mAbout
             request { AboutService.INSTANCE.about().data }
         }

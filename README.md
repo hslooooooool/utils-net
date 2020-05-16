@@ -99,9 +99,9 @@
 
 ## retrofitWithHttpLiveData<>{}
 ```kotlin
-        retrofitWithHttpLiveData<Result?> {
+        retrofitWithHttpLiveData<Result> {
             liveData = mData
-            request { Service.INSTANCE.get().data }
+            request { Service.INSTANCE.get() }
         }
 ```
 

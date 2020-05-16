@@ -44,10 +44,10 @@ class RetrofitCoroutineScope {
     }
 
     class DslWithHttpLiveData<ResultType> {
-        lateinit var liveData: (HttpLiveData<ResultType>)
+        lateinit var liveData: (HttpLiveData<ResultType?>)
         lateinit var request: suspend () -> ResultType?
 
-        fun request(request: suspend () -> ResultType) {
+        fun request(request: suspend () -> ResultType?) {
             this.request = request
         }
     }
