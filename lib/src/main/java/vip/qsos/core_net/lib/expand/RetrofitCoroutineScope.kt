@@ -87,13 +87,15 @@ suspend fun <ResultType> CoroutineScope.retrofit(dsl: RetrofitCoroutineScope.Dsl
         val result = retrofitCoroutine.request.invoke()
         retrofitCoroutine.onSuccess?.invoke(result)
     } catch (e: SocketTimeoutException) {
-        retrofitCoroutine.onFailed?.invoke(500, "请求超时", e)
+        retrofitCoroutine.onFailed?.invoke(HttpStatus.timeout.code, HttpStatus.timeout.msg, e)
     } catch (e: ConnectException) {
-        retrofitCoroutine.onFailed?.invoke(500, "连接失败", e)
+        retrofitCoroutine.onFailed?.invoke(
+            HttpStatus.connectError.code, HttpStatus.connectError.msg, e
+        )
     } catch (e: IOException) {
-        retrofitCoroutine.onFailed?.invoke(500, "解析失败", e)
+        retrofitCoroutine.onFailed?.invoke(HttpStatus.ioError.code, HttpStatus.ioError.msg, e)
     } catch (e: Exception) {
-        retrofitCoroutine.onFailed?.invoke(500, "未知错误", e)
+        retrofitCoroutine.onFailed?.invoke(HttpStatus.error.code, HttpStatus.error.msg, e)
     } finally {
         retrofitCoroutine.onComplete?.invoke()
     }
@@ -124,13 +126,15 @@ suspend fun <ResultType> CoroutineScope.retrofitWithBaseResult(
             }
         }
     } catch (e: SocketTimeoutException) {
-        retrofitCoroutine.onFailed?.invoke(500, "请求超时", e)
+        retrofitCoroutine.onFailed?.invoke(HttpStatus.timeout.code, HttpStatus.timeout.msg, e)
     } catch (e: ConnectException) {
-        retrofitCoroutine.onFailed?.invoke(500, "连接失败", e)
+        retrofitCoroutine.onFailed?.invoke(
+            HttpStatus.connectError.code, HttpStatus.connectError.msg, e
+        )
     } catch (e: IOException) {
-        retrofitCoroutine.onFailed?.invoke(500, "解析失败", e)
+        retrofitCoroutine.onFailed?.invoke(HttpStatus.ioError.code, HttpStatus.ioError.msg, e)
     } catch (e: Exception) {
-        retrofitCoroutine.onFailed?.invoke(500, "未知错误", e)
+        retrofitCoroutine.onFailed?.invoke(HttpStatus.error.code, HttpStatus.error.msg, e)
     } finally {
         retrofitCoroutine.onComplete?.invoke()
     }

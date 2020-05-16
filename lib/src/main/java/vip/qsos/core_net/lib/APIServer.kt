@@ -11,7 +11,6 @@ import vip.qsos.core_net.lib.mock.AbstractMockData
 import vip.qsos.core_net.lib.mock.MockInterceptor
 import java.util.concurrent.TimeUnit
 
-
 object APIServer {
 
     /**网络请求接口参数配置

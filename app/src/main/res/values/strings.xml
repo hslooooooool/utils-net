@@ -1,3 +1,11 @@
 <resources>
-	<string name="app_name">core-net</string>
+    <string name="app_name">Retrofit网络工具</string>
+
+    <string name="nav_header_title">Android</string>
+    <string name="nav_header_subtitle">android development</string>
+    <string name="home">首页</string>
+    <string name="about">关于</string>
+    <string name="feedback">反馈</string>
+    <string name="submit">提交</string>
+
 </resources>

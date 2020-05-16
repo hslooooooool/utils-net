@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="colorPrimary">#FF9800</color>
-	<color name="colorPrimaryDark">#FB9805</color>
-	<color name="colorAccent">#FFEB3B</color>
+    <color name="colorPrimary">#00BCD4</color>
+    <color name="colorPrimaryDark">#00B2C8</color>
+    <color name="colorAccent">#00BCD4</color>
+
+    <color name="submit_unable">#ABABAB</color>
 </resources>
