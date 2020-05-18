@@ -51,7 +51,7 @@ class HomeViewModel : ViewModel() {
                 status.invoke("请求成功")
                 mUserList.postValue(it)
             }
-            onFailed { code, msg, error ->
+            onFailed { _, msg, _ ->
                 status.invoke(msg)
             }
             onComplete {
