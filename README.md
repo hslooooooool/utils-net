@@ -1,8 +1,12 @@
 # Retrofit Kotlin 协程网络请求封装
 
+Tag = [![](https://www.jitpack.io/v/hslooooooool/utils-net.svg)](https://www.jitpack.io/#hslooooooool/utils-net)
+
 直接使用，引入依赖:
 ```groovy
-    implementation 'vip.qsos.utils-net:utils-net:1.0'
+    	dependencies {
+	        implementation 'com.github.hslooooooool:utils-net:Tag'
+	    }
 ```
 
 ## 1. 提供基本 Retrofit 使用
