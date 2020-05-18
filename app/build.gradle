@@ -38,8 +38,8 @@ dependencies {
     implementation(
             fileTree(dir: 'libs', include: ['*.jar']),
 
-            // project(':lib'),
-            'com.github.hslooooooool:utils-net:1.0',
+            project(':lib'),
+            //'com.github.hslooooooool:utils-net:1.0',
 
             'androidx.core:core-ktx:1.2.0',
             'androidx.activity:activity:1.1.0',
@@ -50,7 +50,7 @@ dependencies {
             "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
 
             'androidx.constraintlayout:constraintlayout:1.1.3',
-            'androidx.recyclerview:recyclerview:1.0.0',
+            'androidx.recyclerview:recyclerview:1.1.0',
 
             'androidx.lifecycle:lifecycle-extensions:2.2.0',
             'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0',

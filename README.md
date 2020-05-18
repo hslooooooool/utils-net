@@ -201,7 +201,7 @@ abstract class AbstractMockData : IMockData {
 
     /**Mock 开关默认状态*/
     override fun mock(): Boolean {
-        return BuildConfig.DEBUG
+        return IMockData.openMockData
     }
 }
 ```
