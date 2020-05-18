@@ -1,6 +1,5 @@
 package vip.qsos.utils_net.lib.mock
 
-import vip.qsos.utils_net.lib.BuildConfig
 import java.util.*
 
 /**
