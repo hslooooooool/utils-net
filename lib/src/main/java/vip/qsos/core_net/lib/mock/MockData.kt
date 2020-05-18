@@ -46,7 +46,7 @@ interface IMockData {
 
         /**Mock数据网络请求时长
          *
-         * 默认 0 毫秒，此时请求的超时时间将交由每个 MockData 自行控制
+         * 默认 0 毫秒，此时请求的超时时间将交由每个 MockData 自行控制，超过 0L 时，则全部 Mock 请求采用此超时时长
          * @see IMockData.requestTime
          * */
         var requestTime: Long = 0L
