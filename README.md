@@ -4,6 +4,13 @@ Tag = [![](https://www.jitpack.io/v/hslooooooool/utils-net.svg)](https://www.jit
 
 直接使用，引入依赖:
 ```groovy
+	allprojects {
+		repositories {
+			maven { url 'https://www.jitpack.io' }
+		}
+	}
+```
+```groovy
     	dependencies {
 	        implementation 'com.github.hslooooooool:utils-net:Tag'
 	    }
