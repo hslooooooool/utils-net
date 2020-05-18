@@ -221,7 +221,6 @@ abstract class AbstractMockData : IMockData {
         }
 
     }
-
 ```
 或，使用快捷方式构建，如 [FeedbackService](/app/src/main/java/vip/qsos/utils_net/model/FeedbackService.kt)：
 ```kotlin
