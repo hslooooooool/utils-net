@@ -8,7 +8,7 @@
 ## 1. 提供基本 Retrofit 使用
 
 借助 kotlin dsl 实现请求配置，无特定需求可直接使用以下方法开始请求。核心类见：[RetrofitCoroutineScope](/lib/src/main/java/vip/qsos/core_net/lib/retrofit/RetrofitCoroutineScope.kt)
-请求将带有 suspend 标识，默认在 ViewModel 中进行请求，使用 ViewModel 自行管理请求生命周期，如 [AboutViewModel](\app\src\main\java\vip\qsos\core_net\ui\AboutViewModel.kt) ：
+请求将带有 suspend 标识，默认在 ViewModel 中进行请求，使用 ViewModel 自行管理请求生命周期，如 [AboutViewModel](/app/src/main/java/vip/qsos/utils_net/ui/AboutViewModel.kt) ：
 ```kotlin
 class AboutFragment : Fragment() {
 
@@ -52,16 +52,16 @@ class AboutViewModel : ViewModel() {
 
 - retrofit
 普通请求，自行对请求状态进行处理。
-例如：[SubmitViewModel.submit](/app/src/main/java/vip/qsos/core_net/ui/SubmitViewModel.kt)
+例如：[SubmitViewModel.submit](/app/src/main/java/vip/qsos/utils_net/ui/SubmitViewModel.kt)
 - retrofitWithBaseResult
 采用默认的返回对象，返回对象需实现 [IBaseResult](/lib/src/main/java/vip/qsos/core_net/lib/callback/IBaseResult.kt) 接口。
-例如：[HomeViewModel.loadList](/app/src/main/java/vip/qsos/core_net/ui/HomeViewModel.kt)
+例如：[HomeViewModel.loadList](/app/src/main/java/vip/qsos/utils_net/ui/HomeViewModel.kt)
 - retrofitWithLiveData
 通通过 MutableLiveData 更新 UI，通过 status 方法处理请求状态。
-例如：[HomeViewModel.loadUser](/app/src/main/java/vip/qsos/core_net/ui/HomeViewModel.kt)
+例如：[HomeViewModel.loadUser](/app/src/main/java/vip/qsos/utils_net/ui/HomeViewModel.kt)
 - retrofitWithHttpLiveData
 采用默认的带状态监控的 HttpLiveData 更新 UI，[HttpLiveData](/lib/src/main/java/vip/qsos/core_net/lib/callback/HttpLiveData.kt) 内包含一个观察请求状态的 LiveData 。
-例如：[HttpResult.loadAbout](/app/src/main/java/vip/qsos/core_net/ui/AboutViewModel.kt)
+例如：[HttpResult.loadAbout](/app/src/main/java/vip/qsos/utils_net/ui/AboutViewModel.kt)
 
 以上带请求状态 [HttpStatus](/lib/src/main/java/vip/qsos/core_net/lib/callback/HttpStatus.kt) 数据的请求默认响应了以下几种状态：
 ```kotlin
@@ -155,9 +155,9 @@ class AboutViewModel : ViewModel() {
 
 ## 2.提供网络请求MOCK数据
 
-采用加载本地assets/mock.json资源文件或sd卡下的mock.json资源文件，返回给网络请求mock数据，mock数据的替换使用网络拦截器实现，核心类见：[MockInterceptor](lib\src\main\java\vip\qsos\core_net\lib\mock\MockInterceptor.kt) 。
-使用时，首先定义接口返回的mock数据参数，通过实现 [IMockData](\lib\src\main\java\vip\qsos\core_net\lib\mock\MockData.kt) 接口创建Mock配置，
-或继承默认配置 [AbstractMockData](\lib\src\main\java\vip\qsos\core_net\lib\mock\MockData.kt) 实现，例如：
+采用加载本地assets/mock.json资源文件或sd卡下的mock.json资源文件，返回给网络请求mock数据，mock数据的替换使用网络拦截器实现，核心类见：[MockInterceptor](lib/src/main/java/vip/qsos/utils_net/lib/mock/MockInterceptor.kt) 。
+使用时，首先定义接口返回的mock数据参数，通过实现 [IMockData](/lib/src/main/java/vip/qsos/utils_net/lib/mock/MockData.kt) 接口创建Mock配置，
+或继承默认配置 [AbstractMockData](/lib/src/main/java/vip/qsos/utils_net/lib/mock/MockData.kt) 实现，例如：
 ```kotlin
 class UserMockData : AbstractMockData() {
 
@@ -167,7 +167,7 @@ class UserMockData : AbstractMockData() {
 
 }
 ```
-其中 [MockData](\lib\src\main\java\vip\qsos\core_net\lib\mock\MockData.kt) 为此接口的具体配置，包括：
+其中 [MockData](/lib/src/main/java/vip/qsos/utils_net/lib/mock/MockData.kt) 为此接口的具体配置，包括：
 - 接口组名
 用于分组，在默认配置中，表示为Mock文件的存放文件夹名称
 - 请求方式
@@ -179,7 +179,7 @@ class UserMockData : AbstractMockData() {
 - 请求时长
 用于模拟请求耗时操作，为了留给请求一定时间，实现UI交互动效
 
-在默认配置 [AbstractMockData](\lib\src\main\java\vip\qsos\core_net\lib\mock\MockData.kt) 中，默认约定了Mock数据文件的路径和是否开启此接口的Mock配置的开关条件，可根据需要重写，代码如下：
+在默认配置 [AbstractMockData](/lib/src/main/java/vip/qsos/utils_net/lib/mock/MockData.kt) 中，默认约定了Mock数据文件的路径和是否开启此接口的Mock配置的开关条件，可根据需要重写，代码如下：
 ```kotlin
 abstract class AbstractMockData : IMockData {
 
@@ -249,7 +249,7 @@ abstract class AbstractMockData : IMockData {
     }
 ```
 
-最后，你可能需要在使用网络请求前，进行初始化，详见：[Application](\app\src\main\java\vip\qsos\core_net\Application.kt) , [MockData](\lib\src\main\java\vip\qsos\core_net\lib\mock\MockData.kt) , [APIServer](\lib\src\main\java\vip\qsos\core_net\lib\APIServer.kt) ：
+最后，你可能需要在使用网络请求前，进行初始化，详见：[Application](\app\src\main\java\vip\qsos\core_net\Application.kt) , [MockData](/lib/src/main/java/vip/qsos/utils_net/lib/mock/MockData.kt) , [APIServer](\lib\src\main\java\vip\qsos\core_net\lib\APIServer.kt) ：
 ```kotlin
 class Application : Application() {
 

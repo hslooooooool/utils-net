@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@id/nav_home"
-        android:name="vip.qsos.core_net.ui.HomeFragment"
+        android:name="vip.qsos.utils_net.ui.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@id/nav_about"
-        android:name="vip.qsos.core_net.ui.AboutFragment"
+        android:name="vip.qsos.utils_net.ui.AboutFragment"
         android:label="@string/about"
         tools:layout="@layout/fragment_about" />
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="vip.qsos.core_net">
+    package="vip.qsos.utils_net">
 
     <application
-        android:name=".Application"
+        android:name="vip.qsos.utils_net.Application"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher_foreground"
         android:label="@string/app_name"
@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.HomeActivity"
+            android:name="vip.qsos.utils_net.ui.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,7 @@
         </activity>
 
         <activity
-            android:name=".ui.SubmitActivity"
+            android:name="vip.qsos.utils_net.ui.SubmitActivity"
             android:label="@string/feedback" />
 
     </application>
