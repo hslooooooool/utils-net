@@ -63,8 +63,8 @@ interface IMockData {
 
     /**Mock 开关
      *
-     * 默认由 BuildConfig.DEBUG 决定
-     * @see BuildConfig.DEBUG
+     * 默认由 IMockData.openMockData 决定
+     * @see IMockData.openMockData
      * */
     fun mock(): Boolean
 }

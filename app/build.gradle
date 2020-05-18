@@ -39,7 +39,7 @@ dependencies {
             fileTree(dir: 'libs', include: ['*.jar']),
 
             //project(':lib'),
-            'com.github.hslooooooool:utils-net:1.0',
+            'com.github.hslooooooool:utils-net:0.1',
 
             'androidx.core:core-ktx:1.2.0',
             'androidx.activity:activity:1.1.0',
