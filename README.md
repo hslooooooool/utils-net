@@ -7,7 +7,7 @@
 
 ## 1. 提供基本 Retrofit 使用
 
-借助 kotlin dsl 实现请求配置，无特定需求可直接使用以下方法开始请求。核心类见：[RetrofitCoroutineScope](/lib/src/main/java/vip/qsos/core_net/lib/retrofit/RetrofitCoroutineScope.kt)
+借助 kotlin dsl 实现请求配置，无特定需求可直接使用以下方法开始请求。核心类见：[RetrofitCoroutineScope](lib/src/main/java/vip/qsos/utils_net/lib/retrofit/RetrofitCoroutineScope.kt)
 请求将带有 suspend 标识，默认在 ViewModel 中进行请求，使用 ViewModel 自行管理请求生命周期，如 [AboutViewModel](/app/src/main/java/vip/qsos/utils_net/ui/AboutViewModel.kt) ：
 ```kotlin
 class AboutFragment : Fragment() {
@@ -54,16 +54,16 @@ class AboutViewModel : ViewModel() {
 普通请求，自行对请求状态进行处理。
 例如：[SubmitViewModel.submit](/app/src/main/java/vip/qsos/utils_net/ui/SubmitViewModel.kt)
 - retrofitWithBaseResult
-采用默认的返回对象，返回对象需实现 [IBaseResult](/lib/src/main/java/vip/qsos/core_net/lib/callback/IBaseResult.kt) 接口。
+采用默认的返回对象，返回对象需实现 [IBaseResult](/lib/src/main/java/vip/qsos/utils_net/lib/callback/IBaseResult.kt) 接口。
 例如：[HomeViewModel.loadList](/app/src/main/java/vip/qsos/utils_net/ui/HomeViewModel.kt)
 - retrofitWithLiveData
 通通过 MutableLiveData 更新 UI，通过 status 方法处理请求状态。
 例如：[HomeViewModel.loadUser](/app/src/main/java/vip/qsos/utils_net/ui/HomeViewModel.kt)
 - retrofitWithHttpLiveData
-采用默认的带状态监控的 HttpLiveData 更新 UI，[HttpLiveData](/lib/src/main/java/vip/qsos/core_net/lib/callback/HttpLiveData.kt) 内包含一个观察请求状态的 LiveData 。
+采用默认的带状态监控的 HttpLiveData 更新 UI，[HttpLiveData](/lib/src/main/java/vip/qsos/utils_net/lib/callback/HttpLiveData.kt) 内包含一个观察请求状态的 LiveData 。
 例如：[HttpResult.loadAbout](/app/src/main/java/vip/qsos/utils_net/ui/AboutViewModel.kt)
 
-以上带请求状态 [HttpStatus](/lib/src/main/java/vip/qsos/core_net/lib/callback/HttpStatus.kt) 数据的请求默认响应了以下几种状态：
+以上带请求状态 [HttpStatus](/lib/src/main/java/vip/qsos/utils_net/lib/callback/HttpStatus.kt) 数据的请求默认响应了以下几种状态：
 ```kotlin
         val ioError: HttpStatus by lazy {
             HttpStatus(-3, "解析错误")
@@ -194,7 +194,7 @@ abstract class AbstractMockData : IMockData {
     }
 }
 ```
-在使用 MockData 时，你可自行构建 Retrofit 请求，如 [UserService](\app\src\main\java\vip\qsos\core_net\model\UserService.kt)：
+在使用 MockData 时，你可自行构建 Retrofit 请求，如 [UserService](/app/src/main/java/vip/qsos/utils_net/model/UserService.kt)：
 ```kotlin
     companion object {
 
@@ -223,7 +223,7 @@ abstract class AbstractMockData : IMockData {
     }
 
 ```
-或，使用快捷方式构建，如 [FeedbackService](\app\src\main\java\vip\qsos\core_net\model\FeedbackService.kt)：
+或，使用快捷方式构建，如 [FeedbackService](/app/src/main/java/vip/qsos/utils_net/model/FeedbackService.kt)：
 ```kotlin
     companion object {
         val INSTANCE: FeedbackService by lazy {
@@ -249,7 +249,7 @@ abstract class AbstractMockData : IMockData {
     }
 ```
 
-最后，你可能需要在使用网络请求前，进行初始化，详见：[Application](\app\src\main\java\vip\qsos\core_net\Application.kt) , [MockData](/lib/src/main/java/vip/qsos/utils_net/lib/mock/MockData.kt) , [APIServer](\lib\src\main\java\vip\qsos\core_net\lib\APIServer.kt) ：
+最后，你可能需要在使用网络请求前，进行初始化，详见：[Application](/app/src/main/java/vip/qsos/utils_net/Application.kt) , [MockData](/lib/src/main/java/vip/qsos/utils_net/lib/mock/MockData.kt) , [APIServer](/lib/src/main/java/vip/qsos/utils_net/lib/APIServer.kt) ：
 ```kotlin
 class Application : Application() {
 
