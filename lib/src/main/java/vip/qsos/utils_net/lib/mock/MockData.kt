@@ -2,10 +2,9 @@ package vip.qsos.utils_net.lib.mock
 
 import java.util.*
 
-/**
- * @author : 华清松
+/**MOCK 配置数据
  *
- * MOCK 配置数据
+ * @author : 华清松
  * @param group Mock 数据文件组名
  * @param method 请求方式。GET POST PUT DELETE 等
  * @param path 请求路径
@@ -23,10 +22,9 @@ data class MockData(
     val key = method.toUpperCase(Locale.ENGLISH) + path
 }
 
-/**
- * @author : 华清松
+/**Mock 数据配置与接口
  *
- * Mock 数据配置与接口
+ * @author : 华清松
  * */
 interface IMockData {
 
@@ -69,10 +67,9 @@ interface IMockData {
     fun mock(): Boolean
 }
 
-/**
- * @author : 华清松
+/**Mock 接口默认实现
  *
- * Mock 接口默认实现
+ * @author : 华清松
  * */
 abstract class AbstractMockData : IMockData {
 

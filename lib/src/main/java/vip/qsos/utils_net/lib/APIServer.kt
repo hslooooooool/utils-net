@@ -11,6 +11,9 @@ import vip.qsos.utils_net.lib.mock.AbstractMockData
 import vip.qsos.utils_net.lib.mock.MockInterceptor
 import java.util.concurrent.TimeUnit
 
+/**网络接口请求服务
+ * @author : 华清松
+ */
 object APIServer {
 
     /**网络请求接口参数配置
@@ -54,7 +57,10 @@ object APIServer {
         this.mConfig = config
     }
 
-    /**配置请求接口*/
+    /**配置请求接口
+     * @param cls retrofit接口类
+     * @param config 当前接口请求配置，如果传递此配置，则调用 cls 下定义的接口时，执行此配置的操作，否则
+     * 调用 fun init() 传递的配置*/
     fun <T> api(cls: Class<T>, config: APIConfig? = null): T {
         val retrofitBuilder: Retrofit.Builder
         val okClientBuilder: OkHttpClient.Builder

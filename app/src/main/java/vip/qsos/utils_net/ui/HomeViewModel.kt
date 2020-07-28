@@ -45,17 +45,20 @@ class HomeViewModel : ViewModel() {
         retrofitWithBaseResult<List<UserInfo>> {
             request { UserService.INSTANCE.getUserList() }
             onStart {
+                Log.d("网络请求", "开始请求")
                 status.invoke("开始请求")
             }
             onSuccess {
+                Log.d("网络请求", "请求成功")
                 status.invoke("请求成功")
                 mUserList.postValue(it)
             }
             onFailed { _, msg, _ ->
+                Log.d("网络请求", "请求失败")
                 status.invoke(msg)
             }
             onComplete {
-                status.invoke("请求结束")
+                Log.d("网络请求", "请求结束")
             }
         }
     }

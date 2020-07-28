@@ -7,10 +7,8 @@ import java.io.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-/**
+/**MOCK数据请求拦截器
  * @author : 华清松
- *
- * MOCK请求拦截器
  */
 class MockInterceptor constructor(
     private val appContext: Context
