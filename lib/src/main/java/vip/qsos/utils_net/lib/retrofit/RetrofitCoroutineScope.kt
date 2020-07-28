@@ -2,6 +2,7 @@ package vip.qsos.utils_net.lib.retrofit
 
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineScope
+import retrofit2.HttpException
 import vip.qsos.utils_net.lib.callback.HttpLiveData
 import vip.qsos.utils_net.lib.callback.HttpStatus
 import vip.qsos.utils_net.lib.callback.IBaseResult
@@ -108,6 +109,8 @@ suspend fun <ResultType> CoroutineScope.retrofit(dsl: RetrofitCoroutineScope.Dsl
         )
     } catch (e: IOException) {
         retrofitCoroutine.onFailed?.invoke(HttpStatus.ioError.code, HttpStatus.ioError.msg, e)
+    } catch (e: HttpException) {
+        retrofitCoroutine.onFailed?.invoke(e.code(), e.message(), e)
     } catch (e: Exception) {
         retrofitCoroutine.onFailed?.invoke(HttpStatus.error.code, HttpStatus.error.msg, e)
     } finally {
@@ -147,6 +150,8 @@ suspend fun <ResultType> CoroutineScope.retrofitWithBaseResult(
         )
     } catch (e: IOException) {
         retrofitCoroutine.onFailed?.invoke(HttpStatus.ioError.code, HttpStatus.ioError.msg, e)
+    } catch (e: HttpException) {
+        retrofitCoroutine.onFailed?.invoke(e.code(), e.message(), e)
     } catch (e: Exception) {
         retrofitCoroutine.onFailed?.invoke(HttpStatus.error.code, HttpStatus.error.msg, e)
     } finally {
