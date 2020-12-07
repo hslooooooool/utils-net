@@ -20,7 +20,7 @@ object APIServer {
      *
      * 给各个接口增加此配置后，请求服务将优先采用此参数，否者采用通用配置，通用配置见 APIServer.Config
      *
-     * @param mockDataList MOCK 数据结合
+     * @param mockDataList MOCK 数据集合
      * @param timeout 当前接口组超时时长。毫秒。<= 0 将采用通用配置。
      * @param baseUrl BaseUrl 。为空将采用通用配置。
      *
