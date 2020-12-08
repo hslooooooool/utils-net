@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +17,8 @@ import vip.qsos.utils_net.R
 
 class HomeFragment : Fragment() {
 
-    private val viewModel: HomeViewModel by viewModels()
+    /*注意此处获取的是对应Activity的ViewModel*/
+    private val viewModel: HomeViewModel by activityViewModels()
     private lateinit var mAdapter: UserAdapter
     private lateinit var vUserList: RecyclerView
     private lateinit var vStatus: TextView
